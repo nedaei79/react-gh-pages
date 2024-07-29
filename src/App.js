@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import GameView from "./GameView";
+import GetUrlsView from "./GetUrlsView";
 
 function App() {
+  const [urls, setUrls] = useState({
+    player1: "http://0.0.0.0:8000/api/message/",
+    player2: "http://0.0.0.0:8001/api/message/",
+  });
+  const [gotUrls, setGotUrls] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {(!gotUrls || !urls.player1 || !urls.player2) && (
+        <GetUrlsView setUrls={setUrls} setGotUrls={setGotUrls} />
+      )}
+
+      {gotUrls && urls.player1 && urls.player2 && <GameView urls={urls} />}
+    </>
   );
 }
 
