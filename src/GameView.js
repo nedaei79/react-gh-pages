@@ -83,7 +83,8 @@ export default function GameView({ urls }) {
             Object.keys(urls).map((key) =>
               axios.post(urls[key], {
                 isFinished: true,
-                winner: getXOGameWinner(gameState),
+                youAre: key,
+                winner: getXOGameWinner(res.data.new_state),
               })
             )
           );
